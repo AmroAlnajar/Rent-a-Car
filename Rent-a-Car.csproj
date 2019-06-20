@@ -181,6 +181,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\CarsController.cs" />
+    <Compile Include="Controllers\CarsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -205,6 +207,10 @@
     <Compile Include="Migrations\201906200044524_Number in stock is equal to Number available initially.cs" />
     <Compile Include="Migrations\201906200044524_Number in stock is equal to Number available initially.Designer.cs">
       <DependentUpon>201906200044524_Number in stock is equal to Number available initially.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906201134279_Adding some attributes to secure the input.cs" />
+    <Compile Include="Migrations\201906201134279_Adding some attributes to secure the input.Designer.cs">
+      <DependentUpon>201906201134279_Adding some attributes to secure the input.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -271,6 +277,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Cars\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -303,6 +310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906200044524_Number in stock is equal to Number available initially.resx">
       <DependentUpon>201906200044524_Number in stock is equal to Number available initially.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906201134279_Adding some attributes to secure the input.resx">
+      <DependentUpon>201906201134279_Adding some attributes to secure the input.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
