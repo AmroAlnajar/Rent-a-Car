@@ -16,64 +16,66 @@
         <th>Del</th>
     </tr>
     </thead>
-    <tbody class="dt-body-center"></tbody>
+    <tbody ></tbody>
 </table>
 
-@section scripts
-{
-    <script>
-        $(document).ready(function() {
-            $("#cars").DataTable({
-                ajax: {
-                    url: "/api/cars",
-                    dataSrc: ""
-                },
-                columns: [ 
-                    {
-                        data: "Type.Name",
-                       
-                    },
-                    {
-                        
-                        render: function(data, type, car) {
-                            return "<a href='/cars/edit/" + car.Id + "'>" + car.Make + " " + car.Mod + "</a>";
-                        }
-                    },
-                    {
-                        data: "Price",
-                        render: function(data) {
-                            return "<text>" + data + "$</text>";
-                        }
-                    },
-                    {
-                        data: "NumberAvailable",
 
+@section scripts
+    {
+        <script>
+            $(document).ready(function() {
+                $("#cars").DataTable({
+                    ajax: {
+                        url: "/api/cars",
+                        dataSrc: ""
                     },
-                    {
-                        data: "Id",
-                        render: function(data) {
-                            return "<button class='glyphicon glyphicon glyphicon-remove js-delete btn btn-danger' data-car-id=" + data + ">  </button>";
-                        }
-                    }
-                ]
-            });
-            $("#cars").on("click",
-                ".js-delete",
-                function() {
-                    var button = $(this);
-                    bootbox.confirm("Are you sure you want to delete this car?",
-                        function(result) {
-                            if (result) {
-                                $.ajax({
-                                    url: "/api/cars/" + button.attr("data-car-id"),
-                                    method: "DELETE",
-                                    success: function() {
-                                        button.parents("tr").remove();
-                                    }
-                                });
+                    columns: [
+                        {
+                            data: "Type.Name",
+
+                        },
+                        {
+
+                            render: function(data, type, car) {
+                                return "<a href='/cars/edit/" + car.Id + "'>" + car.Make + " " + car.Mod + "</a>";
                             }
-                        });
+                        },
+                        {
+                            data: "Price",
+                            render: function(data) {
+                                return "<text>" + data + "$</text>";
+                            }
+                        },
+                        {
+                            data: "NumberAvailable",
+
+                        },
+                        {
+                            data: "Id",
+                            render: function(data) {
+                                return "<button class='js-delete btn btn-danger' data-car-id=" + data + "> Delete </button>";
+                            }
+                        }
+                    ]
                 });
-        });
-    </script>
-}
+                $("#cars").on("click",
+                    ".js-delete",
+                    function() {
+                        var button = $(this);
+                        bootbox.confirm("Are you sure you want to delete this car?",
+                            function(result) {
+                                if (result) {
+                                    $.ajax({
+                                        url: "/api/cars/" + button.attr("data-car-id"),
+                                        method: "DELETE",
+                                        success: function() {
+                                            button.parents("tr").remove();
+                                        }
+                                    });
+                                }
+                            });
+                    });
+            });
+        </script>
+    }
+
