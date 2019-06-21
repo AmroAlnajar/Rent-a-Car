@@ -26,7 +26,8 @@ namespace Rent_a_Car
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap-lumen.css",
-                "~/content/datatables/css/datatables.bootstrap4.css",
+                "~/Content/datatables/css/datatables.bootstrap4.css",
+                "~/Content/fontawesome.css",
                 "~/Content/site.css"));
         }
     }

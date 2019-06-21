@@ -24,9 +24,22 @@ textarea {
     max-width: 280px;
 }
 
+/* navbar  */
+.navbar ul {
+    font-size: 18px;
+    font-weight: bold
+}
+
+.dropdown-item {
+    font-size: 18px;
+}
+
 /*   */
 .table td {
-    text-align: center;   
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    
 }
 
 .table th {
