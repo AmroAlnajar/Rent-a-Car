@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Rent_a_Car.Models
@@ -64,6 +65,23 @@ namespace Rent_a_Car.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [StringLength(255)]
+        public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Birth Date")]
+        public DateTime BirthDate { get; set; }
+
+        [Required]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

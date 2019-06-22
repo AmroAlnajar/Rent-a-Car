@@ -1,87 +1,141 @@
-﻿@model Rent_a_Car.Models.IndexViewModel
+﻿@using System.ComponentModel.DataAnnotations
+@model Rent_a_Car.Models.IndexViewModel
 @{
     ViewBag.Title = "Manage";
 }
 
-<h2>@ViewBag.Title.</h2>
 
-<p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
-        @*
-            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
-             See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
-             Uncomment the following block after you have set up two-factor authentication
-        *@
-        @*  
-            <dt>Phone Number:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            
+            <h1>My Information</h1>
+            <hr/>
+
+            <form>
+                <div class="form-group">
+
+                    <label class="indexlabels">Name</label>
+                    <input type="text" class="form-control" value="@Model.Name" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label class="indexlabels">Birth Date</label>
+                    <input type="text" class="form-control" value="@Model.BirthDate.ToShortDateString()" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label class="indexlabels">Address</label>
+                    <input type="text" class="form-control" value="@Model.Address" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label class="indexlabels">Phone Number</label>
+                    <input type="text" class="form-control" value="@Model.PhoneNumber" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label class="indexlabels">E-Mail</label>
+                    <input type="text" class="form-control" value="@Model.Email" readonly>
+                </div>
+
+                <hr/>
+
+                @if (Model.IsEmailConfirmed)
                 {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
-                    }
+                    <div class="input-group mb-3 form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="color: green"> <i class="fas fa-check-circle fa-2x"></i> </span>
+                        </div>
+                        <input readonly type="text" class="form-control" value="E-mail is verified" style="font-weight: bold">
+                    </div>
                 }
                 else
                 {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+                    <div class="input-group mb-3 form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="color: red"> <i class="fas fa-times-circle fa-2x"></i> </span>
+                        </div>
+                        @Html.ActionLink("Verify your E-Mail", "VerifyPhoneNumber", "Manage", null, new {@class = "form-control btn btn-danger", style = "font-weight: bold"})
+                    </div>
+
                 }
-            </dd>
-        *@
-        <dt>Two-Factor Authentication:</dt>
-        <dd>
-            <p>
-                There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
-            @*@if (Model.TwoFactor)
+
+
+
+                @if (Model.IsPhoneConfirmed)
                 {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
-                        </text>
-                    }
+
+                    <div class="input-group mb-3 form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="color: green"> <i class="fas fa-check-circle fa-2x"></i> </span>
+                        </div>
+                        <input readonly type="text" class="form-control" value="Number is verified" style="font-weight: bold">
+                    </div>
+
                 }
                 else
                 {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        </dd>
-    </dl>
+                    <div class="input-group mb-3 form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="color: red"> <i class="fas fa-times-circle fa-2x"></i> </span>
+                        </div>
+                        @Html.ActionLink("Verify your number", "VerifyPhoneNumber", "Manage", null, new {@class = "form-control btn btn-danger", style = "font-weight: bold"})
+                    </div>
+                }
+
+
+                @Html.ActionLink("Change your password", "ChangePassword", "Manage", null, new {@class = "btn btn-primary", style = "Width: 100%; font-size: 19px"})
+            </form>
+
+        </div>
+        
+        
+
+        <div class="col-sm">
+
+            <h1>My Orders</h1>
+            <hr/>
+            
+            
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Date rented</th>
+                    <th scope="col">Car</th>
+                    <th scope="col">Date returned</th>
+                    <th scope="col">Total price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Larry the Bird</td>
+                    <td>twitter</td>
+                </tr>
+                </tbody>
+            </table>
+            
+            
+            
+            
+            
+            
+
+        </div>
+    </div>
 </div>

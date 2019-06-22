@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Rent_a_Car.Models
 {
@@ -12,6 +13,15 @@ namespace Rent_a_Car.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string Address { get; set; }
+
+        public bool IsEmailConfirmed { get; set; }
+        public bool IsPhoneConfirmed { get; set; }
+
+
     }
 
     public class ManageLoginsViewModel

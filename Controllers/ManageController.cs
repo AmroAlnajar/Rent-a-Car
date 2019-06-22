@@ -1,16 +1,18 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using Rent_a_Car.Helpers;
+using Rent_a_Car.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Rent_a_Car.Models;
+
+
 
 namespace Rent_a_Car.Controllers
 {
-    [Authorize]
+    [System.Web.Mvc.Authorize]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -32,9 +34,9 @@ namespace Rent_a_Car.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -54,6 +56,9 @@ namespace Rent_a_Car.Controllers
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
+
+            Helper help = new Helper();
+
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
@@ -64,20 +69,29 @@ namespace Rent_a_Car.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+                Name = help.GetName(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                Email = await UserManager.GetEmailAsync(userId),
+                BirthDate = help.GetBirthDate(userId),
+                Address = help.GetAddress(userId),
+                IsEmailConfirmed = await UserManager.IsEmailConfirmedAsync(userId),
+                IsPhoneConfirmed = await UserManager.IsPhoneNumberConfirmedAsync(userId)
             };
+
+
             return View(model);
         }
 
         //
         // POST: /Manage/RemoveLogin
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
         {
@@ -108,7 +122,7 @@ namespace Rent_a_Car.Controllers
 
         //
         // POST: /Manage/AddPhoneNumber
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
         {
@@ -132,7 +146,7 @@ namespace Rent_a_Car.Controllers
 
         //
         // POST: /Manage/EnableTwoFactorAuthentication
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EnableTwoFactorAuthentication()
         {
@@ -147,7 +161,7 @@ namespace Rent_a_Car.Controllers
 
         //
         // POST: /Manage/DisableTwoFactorAuthentication
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DisableTwoFactorAuthentication()
         {
@@ -171,7 +185,7 @@ namespace Rent_a_Car.Controllers
 
         //
         // POST: /Manage/VerifyPhoneNumber
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
         {
@@ -196,7 +210,7 @@ namespace Rent_a_Car.Controllers
 
         //
         // POST: /Manage/RemovePhoneNumber
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemovePhoneNumber()
         {
@@ -222,7 +236,7 @@ namespace Rent_a_Car.Controllers
 
         //
         // POST: /Manage/ChangePassword
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
@@ -253,7 +267,7 @@ namespace Rent_a_Car.Controllers
 
         //
         // POST: /Manage/SetPassword
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
         {
@@ -301,7 +315,7 @@ namespace Rent_a_Car.Controllers
 
         //
         // POST: /Manage/LinkLogin
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LinkLogin(string provider)
         {
@@ -333,7 +347,7 @@ namespace Rent_a_Car.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -384,6 +398,6 @@ namespace Rent_a_Car.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

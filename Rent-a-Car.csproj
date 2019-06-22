@@ -190,6 +190,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Migrations\201906200031501_Initial migration. Cars and types added as well..cs" />
     <Compile Include="Migrations\201906200031501_Initial migration. Cars and types added as well..Designer.cs">
       <DependentUpon>201906200031501_Initial migration. Cars and types added as well..cs</DependentUpon>
@@ -213,6 +214,22 @@
     <Compile Include="Migrations\201906201134279_Adding some attributes to secure the input.cs" />
     <Compile Include="Migrations\201906201134279_Adding some attributes to secure the input.Designer.cs">
       <DependentUpon>201906201134279_Adding some attributes to secure the input.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906212123464_User should register with a name as well as Email and password..cs" />
+    <Compile Include="Migrations\201906212123464_User should register with a name as well as Email and password..Designer.cs">
+      <DependentUpon>201906212123464_User should register with a name as well as Email and password..cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906212317415_small fix.cs" />
+    <Compile Include="Migrations\201906212317415_small fix.Designer.cs">
+      <DependentUpon>201906212317415_small fix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906220202136_Users have a birthday field when they register.cs" />
+    <Compile Include="Migrations\201906220202136_Users have a birthday field when they register.Designer.cs">
+      <DependentUpon>201906220202136_Users have a birthday field when they register.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906221527005_added address for users.cs" />
+    <Compile Include="Migrations\201906221527005_added address for users.Designer.cs">
+      <DependentUpon>201906221527005_added address for users.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -584,6 +601,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906201134279_Adding some attributes to secure the input.resx">
       <DependentUpon>201906201134279_Adding some attributes to secure the input.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906212123464_User should register with a name as well as Email and password..resx">
+      <DependentUpon>201906212123464_User should register with a name as well as Email and password..cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906212317415_small fix.resx">
+      <DependentUpon>201906212317415_small fix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906220202136_Users have a birthday field when they register.resx">
+      <DependentUpon>201906220202136_Users have a birthday field when they register.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906221527005_added address for users.resx">
+      <DependentUpon>201906221527005_added address for users.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

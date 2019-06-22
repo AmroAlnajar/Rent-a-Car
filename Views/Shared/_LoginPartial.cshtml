@@ -1,14 +1,17 @@
 ﻿@using Microsoft.AspNet.Identity
+@using Rent_a_Car.Helpers
 
-@{var message = "";
+@{ 
+    var message = "";
+    Helper help = new Helper();
 }
 
 <ul class="nav navbar-nav ml-auto ">
     <li class="nav-item dropdown ">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            @{ message = Request.IsAuthenticated ? User.Identity.GetUserName() : "Log In"; }
+            @{ message = Request.IsAuthenticated ? help.GetName(User.Identity.GetUserId()) : "Log In"; }
            
-            @message
+             @message
 
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
