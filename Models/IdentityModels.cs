@@ -17,6 +17,7 @@ namespace Rent_a_Car.Models
 
         [Required]
         [Display(Name = "Birth Date")]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
 
         [Required]
@@ -38,6 +39,8 @@ namespace Rent_a_Car.Models
         public DbSet<Car> Cars { get; set; }
 
         public DbSet<Type> Types { get; set; }
+
+        public DbSet<Rental> Rentals { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

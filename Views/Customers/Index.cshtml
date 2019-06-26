@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Rent_a_Car.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+    <div class="container">
+       
+        <h2>Customers table</h2>
+        
+        <br/>
+        
+        
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone number</th>
+                <th scope="col">Birthday</th>
+                <th scope="col">Address</th>
+                <th scope="col">Phone confirmed</th>
+                <th scope="col">Email confirmed</th>
+            </tr>
+            </thead>
+           
+            <tbody>
+            
+            
+            @foreach (var customer in Model)
+            {
+                <tr>
+                
+                    <td>
+                        @Html.DisplayFor(modelItem => customer.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => customer.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => customer.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => customer.BirthDate)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => customer.Address)
+                    </td>
+                    <td>
+
+                        @if (customer.PhoneNumberConfirmed)
+                        {
+                            <i class="fas fa-check-circle fa-2x" style="color: green"></i>
+                        }
+                        else
+                        {
+
+                            <i class="fas fa-times-circle fa-2x" style="color: red"></i>
+                        }
+
+                    </td>
+                    <td>
+                        @if (customer.EmailConfirmed)
+                        {
+                            <i class="fas fa-check-circle fa-2x" style="color: green"></i>
+
+                        }
+                        else
+                        {
+                            <i class="fas fa-times-circle fa-2x" style="color: red"></i>
+
+                        }
+                    </td>
+
+
+                </tr>
+            }
+
+          
+
+
+
+            </tbody>
+        </table>
+
+
+
+
+    </div>
+
+

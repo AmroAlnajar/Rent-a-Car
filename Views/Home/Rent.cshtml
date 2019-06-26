@@ -1,0 +1,102 @@
+﻿@model Rent_a_Car.Models.RentalViewModel
+
+@{
+    ViewBag.Title = "Rent";
+    var totalCarPrice = Model.CarPrice * Model.DaysToRent;
+}
+
+
+    
+
+
+<div class="shadow-lg rounded" style="width: 50%; height: 400px; position: relative; top: 100px; left: 20%; background-color: #b7bfcc; font-size: 20px">
+   
+    
+       
+
+    <div id="carmod" style="position: absolute; top: 10px; left: 40px;">
+
+
+        <div class="d-inline">@Model.CarMake @Model.CarMod</div> <div class="d-inline boldtext">or similar</div>
+
+    </div>
+    
+
+    
+    <div style="position: absolute; bottom: 0; left: 0;">
+    
+    <img class="rounded img-thumbnail" src="@Model.CarPicture" style="width: 350px; height: 350px;"  alt="Picture" /> 
+        
+    </div>
+    
+    
+    <div class="border-bottom border-dark" style="position: absolute; top: 0px; right: 1%;">
+            
+            <div>
+                <div class="d-block boldtext">Pick-up</div>
+                <div class="d-block">@Model.DateRented.ToLongDateString()</div>
+            </div>
+        
+            <div>
+                <div class="d-block boldtext">Drop-off</div>
+                <div class="d-block">@Model.DateRented.AddDays(@Model.DaysToRent).ToLongDateString()</div>
+            </div>
+
+        </div>
+        
+        
+    
+        <div id="totalprice" style="position: absolute; right: 130px; bottom: 0">
+            <h4> Total Price: @totalCarPrice $ </h4>
+        </div>
+    
+    
+    
+    
+    
+    
+   
+    
+    
+    <div style="position: absolute; bottom: 0; right: 0;">
+        
+            
+        @using (Html.BeginForm("RentPost", "Home", new { id = @Model.CarId }))
+        {
+
+            @Html.HiddenFor(m => m.CarId)
+            @Html.HiddenFor(m => m.CustomerId)
+            @Html.HiddenFor(m => m.DateRented)
+            @Html.HiddenFor(m => m.DaysToRent)
+
+            <button type="submit" class="btn btn-primary btn-lg"> Check out </button>
+        }
+        
+
+    </div>
+    
+
+    
+
+    
+
+</div>
+
+
+
+
+
+
+@section scripts
+{
+    <style>
+
+        .boldtext
+        {
+            font-weight: bold;
+
+        }
+
+
+    </style>
+}
