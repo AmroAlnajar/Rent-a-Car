@@ -13,7 +13,9 @@ namespace Rent_a_Car
                 "~/scripts/bootbox.js",
                 "~/Scripts/respond.js",
                 "~/scripts/datatables/jquery.datatables.js",
-                "~/scripts/datatables/datatables.bootstrap4.js"
+                "~/scripts/datatables/datatables.bootstrap4.js",
+                "~/scripts/moment.min.js",
+                "~/scripts/moment-with-locales.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

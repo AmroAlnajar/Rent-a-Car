@@ -82,7 +82,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" style="color: red"> <i class="fas fa-times-circle fa-2x"></i> </span>
                         </div>
-                        @Html.ActionLink("Verify your number", "VerifyPhoneNumber", "Manage", null, new {@class = "form-control btn btn-danger", style = "font-weight: bold"})
+                        @Html.ActionLink("Verify your number", "VerifyPhoneNumber", "Manage", new {PhoneNumber=@Model.PhoneNumber}, new {@class = "form-control btn btn-danger", style = "font-weight: bold"})
                     </div>
                 }
 

@@ -51,8 +51,13 @@ namespace Rent_a_Car.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult Rent(int id, DateTime DateRented, DateTime DateReturned)
+        public ActionResult Rent(int id, DateTime dateRented, DateTime dateReturned)
         {
+            if (dateRented.Date < DateTime.Now.Date || dateReturned.Date < dateRented.Date || dateReturned.Date < DateTime.Now)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             Helper helper = new Helper();
 
             var cars = _context.Cars.Find(id);
@@ -69,8 +74,8 @@ namespace Rent_a_Car.Controllers
                 CarPrice = cars.Price,
                 CarId = cars.Id,
                 CustomerId = User.Identity.GetUserId(),
-                DateRented = DateRented,
-                DateReturned = DateReturned
+                DateRented = dateRented,
+                DateReturned = dateReturned
             };
 
             return View(viewmodel);

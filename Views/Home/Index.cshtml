@@ -60,20 +60,20 @@
                                     {
                                         <div>
                                             <div class="input-group mb-3">
-                                                <input required type="date"  name="DateRented" id="FromDate-@item.Id" class="form-control">
+                                                <input required="" type="date"  name="DateRented" id="FromDate-@item.Id" class="form-control">
                                             </div>
 
                                             <p style="text-align: center; font-weight: bold">Return date</p>
 
                                             <div class="input-group mb-3">
-                                                <input required type="date" id="ToDate-@item.Id" name="DateReturned" class="form-control">
+                                                <input required=""  type="date" id="ToDate-@item.Id" name="DateReturned" class="form-control">
                                             </div>
 
                                         </div>
 
                                         <input type="hidden" name="id" , value="@item.Id"/>
 
-                                        <button class="btn btn-primary" type="submit" style="width:100%"> Choose this car </button>
+                                        <button id="SubButton-@item.Id" class="btn btn-primary" type="submit" style="width:100%"> Choose this car </button>
                                     }
 
 
@@ -98,75 +98,106 @@
 
 @section scripts
 {
-  
-
-        @foreach (var item in Model)
-        {
-
-<script>
 
 
-                $(document).ready(function () {
+    @foreach (var item in Model)
+    {
 
-                    var today = new Date().toDateString();
+        <script>
 
-                    var price = $('#totprice-@item.Id').attr('value');
 
-                    var fromdate = 1;
-                    var todate = 1;
-                    var totaldays = 1;
-                    var millisecondsPerDay = 1000 * 60 * 60 * 24;
+            $(document).ready(function () {
 
-                    $("#FromDate-@item.Id").on('change', function () {
-                        fromdate = this.value;
+                const q = new Date;
+                const month = q.getMonth();
+                const year = q.getFullYear();
+                const day = q.getDay();
+                let today = new Date(year, month, day); // Mon Jul 01 2019 00:00:00 GMT+0200 (Central European Summer Time)
+
+                //Each element has an attribute "Value" where the price of the item is stored
+                let price = $('#totprice-@item.Id').attr('value');
+
+                let fromdate;
+                let todate;
+
+                // days are calculated in miliseconds. This is used
+                const millisecondsPerDay = 1000 * 60 * 60 * 24;
+
+                $("#FromDate-@item.Id").on('change',
+                    function() {
+                        fromdate = new Date(this.value);
+
                     });
 
-                    $("#ToDate-@item.Id").on('change', function () {
-                        todate = this.value;
+                $("#ToDate-@item.Id").on('change',
+                    function() {
+                        todate = new Date(this.value);
 
                     });
 
 
-                    $("#FromDate-@item.Id, #ToDate-@item.Id").on('change', function () {
+                $("#FromDate-@item.Id, #ToDate-@item.Id").on('change',
+                    function() {
 
-                        var end = new Date(todate);
-                        var start = new Date(fromdate);
-                        var millisBetween = end.getTime() - start.getTime();
+                        let end = new Date(todate);
+                        let start = new Date(fromdate);
 
-                        var days = millisBetween / millisecondsPerDay;
+                        let millisBetween = end.getTime() - start.getTime();
 
-
-                        if (end > start) {
+                        let days = millisBetween / millisecondsPerDay;
 
 
-                            $("#totprice-@item.Id").text("Total price: " + days * price + "$");
+                        if (fromdate < today) {
 
+                            
                         }
 
-                        
+                        else if (todate < today || todate < fromdate) {
+
+                           
+
+                        } 
 
 
+                        if (fromdate < today || todate < today || todate < fromdate) {
+                            $("#ToDate-@item.Id").addClass("error-forms");
+                            $("#FromDate-@item.Id").addClass("error-forms");
+
+                        }
+                        else if (Number.isNaN(days)) {
+
+                            
+
+                        }
+                        else {
 
 
-
-
+                            $("#totprice-@item.Id").text(`Total price: ${days * price}$`);
+                            $("#FromDate-@item.Id").removeClass("error-forms");
+                            $("#ToDate-@item.Id").removeClass("error-forms");
+                        }
 
 
                     });
 
 
+                $("#SubButton-@item.Id").on('click',
+                    function() {
+
+                        if (fromdate < today || todate < today || todate < fromdate) {
+
+                            bootbox.alert("Please choose a correct date");
+
+                            return false;
+                        }
+
+                    });
 
 
+            });
 
+        </script>
+    }
 
-
-
-
-
-                });
-
-</script>
-        }
-
-   
+    @Scripts.Render("~/bundles/jqueryval")
 }

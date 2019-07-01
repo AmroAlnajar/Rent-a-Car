@@ -57,5 +57,10 @@ textarea {
 
 /*
 
+    
+
 */
 
+.error-forms {
+    border: 2px solid red;
+}
