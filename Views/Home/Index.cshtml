@@ -120,9 +120,12 @@
                 let fromdate;
                 let todate;
 
-                // days are calculated in miliseconds. This is used
+                /* days are calculated in miliseconds.
+                 This is used to divide the values and get the number of days */
                 const millisecondsPerDay = 1000 * 60 * 60 * 24;
 
+
+                
                 $("#FromDate-@item.Id").on('change',
                     function() {
                         fromdate = new Date(this.value);
@@ -158,7 +161,7 @@
 
                         } 
 
-
+                        //validating the input. Users will be notified if the dates are invalid.
                         if (fromdate < today || todate < today || todate < fromdate) {
                             $("#ToDate-@item.Id").addClass("error-forms");
                             $("#FromDate-@item.Id").addClass("error-forms");
@@ -180,7 +183,7 @@
 
                     });
 
-
+                //can't submit if the dates are invalid.
                 $("#SubButton-@item.Id").on('click',
                     function() {
 
