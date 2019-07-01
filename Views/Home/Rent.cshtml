@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Rent";
-    var totalCarPrice = Model.CarPrice * Model.DaysToRent;
+    var totalCarPrice = Model.CarPrice * (Model.DateReturned - Model.DateRented).Days;
 }
 
 
@@ -23,7 +23,7 @@
     
 
     
-    <div style="position: absolute; bottom: 0; left: 0;">
+    <div style="position: absolute; bottom: 5px; left: 5px;">
     
     <img class="rounded img-thumbnail" src="@Model.CarPicture" style="width: 350px; height: 350px;"  alt="Picture" /> 
         
@@ -39,7 +39,7 @@
         
             <div>
                 <div class="d-block boldtext">Drop-off</div>
-                <div class="d-block">@Model.DateRented.AddDays(@Model.DaysToRent).ToLongDateString()</div>
+                <div class="d-block">@Model.DateReturned.ToLongDateString()</div>
             </div>
 
         </div>
@@ -67,7 +67,7 @@
             @Html.HiddenFor(m => m.CarId)
             @Html.HiddenFor(m => m.CustomerId)
             @Html.HiddenFor(m => m.DateRented)
-            @Html.HiddenFor(m => m.DaysToRent)
+            @Html.HiddenFor(m => m.DateReturned)
 
             <button type="submit" class="btn btn-primary btn-lg"> Check out </button>
         }

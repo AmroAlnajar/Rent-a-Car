@@ -18,16 +18,40 @@ namespace Rent_a_Car.Controllers
             _context = new ApplicationDbContext();
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int? sortOrder)
         {
+
             var cars = _context.Cars.Include(m => m.Type).ToList();
+
+            switch (sortOrder)
+            {
+                case 1:
+                    cars = _context.Cars.Where(m => m.TypeId == 1).Include(m => m.Type).ToList();
+                    break;
+                case 2:
+                    cars = _context.Cars.Where(m => m.TypeId == 2).Include(m => m.Type).ToList();
+                    break;
+                case 3:
+                    cars = _context.Cars.Where(m => m.TypeId == 3).Include(m => m.Type).ToList();
+                    break;
+                case 4:
+                    cars = _context.Cars.Where(m => m.TypeId == 4).Include(m => m.Type).ToList();
+                    break;
+                case 5:
+                    cars = _context.Cars.Where(m => m.TypeId == 5).Include(m => m.Type).ToList();
+                    break;
+                case 6:
+                    cars = _context.Cars.Where(m => m.TypeId == 6).Include(m => m.Type).ToList();
+                    break;
+            }
 
             return View(cars);
         }
 
+
         [HttpGet]
         [Authorize]
-        public ActionResult Rent(int id, int daystorent)
+        public ActionResult Rent(int id, DateTime DateRented, DateTime DateReturned)
         {
             Helper helper = new Helper();
 
@@ -45,8 +69,8 @@ namespace Rent_a_Car.Controllers
                 CarPrice = cars.Price,
                 CarId = cars.Id,
                 CustomerId = User.Identity.GetUserId(),
-                DateRented = DateTime.Now,
-                DaysToRent = daystorent
+                DateRented = DateRented,
+                DateReturned = DateReturned
             };
 
             return View(viewmodel);
@@ -61,7 +85,7 @@ namespace Rent_a_Car.Controllers
                 CarId = model.CarId,
                 CustomerId = model.CustomerId,
                 DateRented = model.DateRented,
-                DateReturned = model.DateRented.AddDays(model.DaysToRent)
+                DateReturned = model.DateReturned
 
 
             };

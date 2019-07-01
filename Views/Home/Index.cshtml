@@ -6,49 +6,167 @@
 }
 
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
+
+        <div class="col-2 sticky-top" style="position: fixed; top: 110px;">
+            
+            <span class="badge badge-primary badge-pill"></span>
+            
+            
+            <div class="list-group">
+                
+                
+
+                <a href="/" class="list-group-item list-group-item-action active"> All </a>
+                <a href="/?sortOrder=1" class="list-group-item list-group-item-action">Economy</a>
+                <a href="/?sortOrder=2" class="list-group-item list-group-item-action">Compact</a>
+                <a href="/?sortOrder=3" class="list-group-item list-group-item-action">Standard</a>
+                <a href="/?sortOrder=4" class="list-group-item list-group-item-action">Midsize</a>
+                <a href="/?sortOrder=5" class="list-group-item list-group-item-action">Full size</a>
+                <a href="/?sortOrder=6" class="list-group-item list-group-item-action">Special car</a>
+
+
+
+            </div>
+
+
+        </div>
+        
+
+        <div class="col-sm">
+            <div class="container">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+
+                        <div class="col">
+
+                            <div class="card" style="width: 18rem;  margin-bottom: 20px">
+                                <img src="https://dummyimage.com/400x400/000000/fff" class="card-img-top" alt="dummy image">
+                                <div class="card-body">
+                                    <div class="card-title">
+                                        <h5 style="font-size: 20px; text-align: center">@item.Make @item.Mod</h5>
+                                        
+                                        <hr/>
+
+                                        <h6 id="totprice-@item.Id" style="font-weight: bold; text-align: center; font-size: 15px" value="@item.Price">@item.Price$ Per day</h6>
+                                        
+                                        <hr/>
+                                    </div>
+                                    <p style="text-align: center; font-weight: bold">Pickup-date</p>
+
+                                    @using (Html.BeginForm("rent", "Home", FormMethod.Get))
+                                    {
+                                        <div>
+                                            <div class="input-group mb-3">
+                                                <input required type="date"  name="DateRented" id="FromDate-@item.Id" class="form-control">
+                                            </div>
+
+                                            <p style="text-align: center; font-weight: bold">Return date</p>
+
+                                            <div class="input-group mb-3">
+                                                <input required type="date" id="ToDate-@item.Id" name="DateReturned" class="form-control">
+                                            </div>
+
+                                        </div>
+
+                                        <input type="hidden" name="id" , value="@item.Id"/>
+
+                                        <button class="btn btn-primary" type="submit" style="width:100%"> Choose this car </button>
+                                    }
+
+
+                                </div>
+                            </div>
+
+                            <div class="w-100"></div>
+
+                        </div>
+                    }
+
+                </div>
+            </div>
+            
+        </div>
+        
+
+
+
+    </div>
+</div>
+
+@section scripts
+{
+  
 
         @foreach (var item in Model)
         {
-            s++;
 
-            <div class="col" style="margin-bottom: 20px; margin-left: 20px; max-width: 300px;">
+<script>
 
-                <div class="card" style="width: 18rem;">
-                    <img src="@item.Picture" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">@item.Make @item.Mod</h5>
-                        <p class="card-text">example car </p>
 
-                        @using (Html.BeginForm("rent", "Home", FormMethod.Get))
-                        {
-                            <div class="form-group">
-                                <label>Days to rent</label>
-                                <input type="number" class="form-control" name="daystorent" style="width: 70px" required>
-                            </div>
-                            <input type="hidden" name="id" , value="@item.Id"/>
+                $(document).ready(function () {
 
-                            <button class="btn btn-primary" type="submit"> Rent it </button>
+                    var today = new Date().toDateString();
+
+                    var price = $('#totprice-@item.Id').attr('value');
+
+                    var fromdate = 1;
+                    var todate = 1;
+                    var totaldays = 1;
+                    var millisecondsPerDay = 1000 * 60 * 60 * 24;
+
+                    $("#FromDate-@item.Id").on('change', function () {
+                        fromdate = this.value;
+                    });
+
+                    $("#ToDate-@item.Id").on('change', function () {
+                        todate = this.value;
+
+                    });
+
+
+                    $("#FromDate-@item.Id, #ToDate-@item.Id").on('change', function () {
+
+                        var end = new Date(todate);
+                        var start = new Date(fromdate);
+                        var millisBetween = end.getTime() - start.getTime();
+
+                        var days = millisBetween / millisecondsPerDay;
+
+
+                        if (end > start) {
+
+
+                            $("#totprice-@item.Id").text("Total price: " + days * price + "$");
+
                         }
-                    </div>
-                </div>
-            </div>
-                
 
-
-                if (s % 3 == 0)
-                {
-                <div class="w-100"></div>
-
-                }
+                        
 
 
 
-                }
-                
 
 
-            </div>
-        </div>
 
+
+
+                    });
+
+
+
+
+
+
+
+
+
+
+                });
+
+</script>
+        }
+
+   
+}

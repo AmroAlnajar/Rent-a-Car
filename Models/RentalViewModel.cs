@@ -14,7 +14,7 @@ namespace Rent_a_Car.Models
         public int CarPrice { get; set; }
         public string CarPicture { get; set; }
         public DateTime DateRented { get; set; }
-        public int DaysToRent { get; set; }
+        public DateTime DateReturned { get; set; }
 
     }
 }
