@@ -15,6 +15,7 @@ namespace Rent_a_Car.Models
         public string CarPicture { get; set; }
         public DateTime DateRented { get; set; }
         public DateTime DateReturned { get; set; }
+        public int TotalPrice { get; set; }
 
     }
 }

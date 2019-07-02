@@ -75,7 +75,8 @@ namespace Rent_a_Car.Controllers
                 CarId = cars.Id,
                 CustomerId = User.Identity.GetUserId(),
                 DateRented = dateRented,
-                DateReturned = dateReturned
+                DateReturned = dateReturned,
+                TotalPrice = (cars.Price) * (dateReturned - dateRented).Days
             };
 
             return View(viewmodel);
@@ -90,7 +91,8 @@ namespace Rent_a_Car.Controllers
                 CarId = model.CarId,
                 CustomerId = model.CustomerId,
                 DateRented = model.DateRented,
-                DateReturned = model.DateReturned
+                DateReturned = model.DateReturned,
+                TotalPrice = model.TotalPrice
 
 
             };

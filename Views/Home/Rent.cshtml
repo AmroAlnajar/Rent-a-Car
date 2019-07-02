@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Rent";
-    var totalCarPrice = Model.CarPrice * (Model.DateReturned - Model.DateRented).Days;
 }
 
 
@@ -47,7 +46,7 @@
         
     
         <div id="totalprice" style="position: absolute; right: 130px; bottom: 0">
-            <h4> Total Price: @totalCarPrice $ </h4>
+            <h4> Total Price: @Model.TotalPrice $ </h4>
         </div>
     
     
@@ -68,6 +67,7 @@
             @Html.HiddenFor(m => m.CustomerId)
             @Html.HiddenFor(m => m.DateRented)
             @Html.HiddenFor(m => m.DateReturned)
+            @Html.HiddenFor(m=>m.TotalPrice)
 
             <button type="submit" class="btn btn-primary btn-lg"> Check out </button>
         }

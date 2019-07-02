@@ -17,5 +17,7 @@ namespace Rent_a_Car.Models
 
         public DateTime DateReturned { get; set; }
 
+        public int TotalPrice { get; set; }
+
     }
 }
