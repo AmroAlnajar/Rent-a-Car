@@ -100,33 +100,17 @@
             <hr/>
             
             
-            <table class="table table-hover">
+            <table id="MyOrders" class="table table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">Date rented</th>
                     <th scope="col">Car</th>
+                    <th scope="col">Date rented</th>
                     <th scope="col">Date returned</th>
                     <th scope="col">Total price</th>
                 </tr>
                 </thead>
+
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>twitter</td>
-                </tr>
                 </tbody>
             </table>
             
@@ -139,3 +123,53 @@
         </div>
     </div>
 </div>
+
+@section scripts
+{
+    <script>
+
+        $(document).ready(function() {
+                $("#MyOrders").DataTable({
+                    ajax: {
+                        url: "/api/MyRentals",
+                        dataSrc: ""
+                    },
+                    columns: [
+                        {
+                            data: { 'data': "Car.Mod", 'data2': "Car.Make" },
+                            render: function(data) {
+                                return data.Car.Make + " " + data.Car.Mod;
+                            }
+
+            },
+                        {
+
+                            data: "DateRented",
+                            render: function (data) {
+                                var DataToDate = new Date(data);
+                                return DataToDate.toDateString();
+                            }
+                        },
+                        {
+                            data: "DateReturned",
+                            render: function (data) {
+                                var DataToDate = new Date(data);
+                                return DataToDate.toDateString();
+                            }
+                        },
+                        {
+                            data: "TotalPrice",
+                            render: function(data) {
+                                return data + " $";
+                            }
+
+                        }
+                    ]
+                });
+
+                
+            });
+
+
+    </script>
+}
